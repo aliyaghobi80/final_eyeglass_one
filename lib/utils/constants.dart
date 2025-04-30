@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Constants {
-  static const String baseUrl = 'http://87.248.155.142';
+  static const String baseUrl = 'http://**.***.***.***';
 
   // Authentication endpoints
   static const String loginUrl = '$baseUrl/api/login/';
