@@ -165,23 +165,13 @@ class AuthController extends GetxController {
       Get.log('Login error: $e');
       Get.log('Stack trace: $stackTrace');
 
-      String errorMsg;
-
       if (e is HttpException) {
-        errorMsg = 'خطای ارتباط با سرور. لطفاً دوباره تلاش کنید.';
       } else if (e is SocketException) {
-        errorMsg = 'عدم دسترسی به اینترنت. لطفاً اتصال خود را بررسی کنید.';
       } else if (e is FormatException) {
-        errorMsg = 'پاسخ نامعتبر از سرور دریافت شد.';
       } else if (e.toString().contains('401')) {
-        errorMsg = 'نام کاربری یا رمز عبور اشتباه است.';
       } else if (e.toString().contains('404')) {
-        errorMsg = 'کاربر یافت نشد.';
       } else if (e.toString().contains('500')) {
-        errorMsg = 'خطای سرور. لطفاً دوباره تلاش کنید.';
-      } else {
-        errorMsg = e.toString();
-      }
+      } else {}
 
       // Remove Get.snackbar to let the LoginScreen handle the error display
       rethrow;

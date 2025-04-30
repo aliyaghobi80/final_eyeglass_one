@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:rive/rive.dart' as rive;
 import '../controllers/auth_controller.dart';
 import 'package:flutter/services.dart';
-import 'package:rxdart/rxdart.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
