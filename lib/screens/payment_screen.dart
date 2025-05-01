@@ -4,6 +4,7 @@ import 'package:persian_number_utility/persian_number_utility.dart';
 import 'package:flutter/services.dart';
 import '../controllers/cart_controller.dart';
 import '../controllers/order_controller.dart';
+import 'dart:async';
 
 class PaymentScreen extends StatefulWidget {
   const PaymentScreen({super.key});
@@ -23,8 +24,20 @@ class _PaymentScreenState extends State<PaymentScreen> {
   final CartController cartController = Get.find();
   final OrderController orderController = Get.find();
 
+  Timer? _timer;
+  int _remainingMinutes = 9;
+  int _remainingSeconds = 0;
+  bool _isTimeout = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _startTimer();
+  }
+
   @override
   void dispose() {
+    _timer?.cancel();
     _cardNumberController.dispose();
     _expiryMonthController.dispose();
     _expiryYearController.dispose();
@@ -32,6 +45,42 @@ class _PaymentScreenState extends State<PaymentScreen> {
     _addressController.dispose();
     _phoneController.dispose();
     super.dispose();
+  }
+
+  void _startTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        if (_remainingSeconds > 0) {
+          _remainingSeconds--;
+        } else if (_remainingMinutes > 0) {
+          _remainingMinutes--;
+          _remainingSeconds = 59;
+        } else {
+          _timer?.cancel();
+          _isTimeout = true;
+          _showTimeoutDialog();
+        }
+      });
+    });
+  }
+
+  void _showTimeoutDialog() {
+    Get.dialog(
+      AlertDialog(
+        title: const Text('زمان پرداخت به پایان رسید'),
+        content: const Text('لطفاً دوباره تلاش کنید'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Get.back(); // Close dialog
+              Get.offAllNamed('/home'); // Return to home screen
+            },
+            child: const Text('بستن'),
+          ),
+        ],
+      ),
+      barrierDismissible: false,
+    );
   }
 
   Future<void> _processPayment() async {
@@ -51,8 +100,47 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (_isTimeout) {
+      return const Scaffold(
+        body: Center(child: Text('زمان پرداخت به پایان رسید')),
+      );
+    }
+
     return Scaffold(
-      appBar: AppBar(title: const Text('پرداخت'), centerTitle: true),
+      appBar: AppBar(
+        title: const Text('پرداخت'),
+        centerTitle: true,
+        actions: [
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            decoration: BoxDecoration(
+              color:
+                  Theme.of(context).brightness == Brightness.dark
+                      ? Colors.grey[800]
+                      : Colors.grey[200],
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                color:
+                    Theme.of(context).brightness == Brightness.dark
+                        ? Colors.grey[700]!
+                        : Colors.grey[300]!,
+              ),
+            ),
+            child: Text(
+              '${_remainingMinutes.toString().padLeft(2, '0')}:${_remainingSeconds.toString().padLeft(2, '0')}',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color:
+                    Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black87,
+              ),
+            ),
+          ),
+        ],
+      ),
       body: Directionality(
         textDirection: TextDirection.rtl,
         child: SingleChildScrollView(
@@ -66,25 +154,41 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: Colors.grey[200],
+                    color:
+                        Theme.of(context).brightness == Brightness.dark
+                            ? Colors.grey[850]
+                            : Colors.grey[100],
                     borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                      color:
+                          Theme.of(context).brightness == Brightness.dark
+                              ? Colors.grey[700]!
+                              : Colors.grey[300]!,
+                    ),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
+                      Text(
                         'مبلغ کل:',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
+                          color:
+                              Theme.of(context).brightness == Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black87,
                         ),
                       ),
                       Text(
                         '${cartController.totalPrice.toString().seRagham()} تومان',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: Colors.green,
+                          color:
+                              Theme.of(context).brightness == Brightness.dark
+                                  ? Colors.greenAccent
+                                  : Colors.green[700],
                         ),
                       ),
                     ],

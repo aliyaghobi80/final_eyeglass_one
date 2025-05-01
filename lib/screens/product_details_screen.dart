@@ -342,16 +342,6 @@ class ProductDetailsScreen extends StatelessWidget {
                 isAvailable
                     ? () {
                       cartController.addToCart(product['id'], 1);
-                      Get.snackbar(
-                        'موفقیت',
-                        'محصول به سبد خرید اضافه شد',
-                        snackPosition: SnackPosition.BOTTOM,
-                        backgroundColor: Colors.green,
-                        colorText: Colors.white,
-                        margin: const EdgeInsets.all(8),
-                        borderRadius: 8,
-                        duration: const Duration(seconds: 2),
-                      );
                     }
                     : null,
             icon: const Icon(Icons.shopping_cart),

@@ -600,11 +600,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             color:
                                 Get.isDarkMode
                                     ? Colors.grey[400]
-                                    : Colors.grey[600],
+                                    : Colors.black87,
                           ),
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.right, // راست چین کردن متن
+                          textAlign: TextAlign.right,
                         ),
                         const Spacer(),
                         if (isOnSale)
