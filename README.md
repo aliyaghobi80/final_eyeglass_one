@@ -1,16 +1,10 @@
-# final_eyeglass_one
 
-A new Flutter project.
+این پروژه یک فروشگاه عینک آنلاین است که با استفاده از دارت و فلاتر پیاده‌سازی شده است. در این پروژه، نقش‌های مختلفی تعریف شده‌اند: 
+- **ادمین**: ادمین می‌تواند محصولات جدیدی اضافه کند، قیمت‌ها و توضیحات را ویرایش کند و مدیریت نماید. همچنین ادمین به گزارش فروش و اطلاعات مربوط به مشتریان دسترسی دارد.
+- **مشتری**: مشتری‌ها می‌توانند محصولاتی مانند عینک‌های آفتابی، عینک طبی و  مرتبط را مشاهده کنند، فیلترهای مختلفی برای جستجو و دسته‌بندی محصولات به کار بگیرند و خریدهای خود را انجام دهند.
 
-## Getting Started
+ویژگی‌های پیشرفته این پروژه شامل:
+1. **پرداخت آنلاین امن**: با استفاده از درگاه‌های بانکی یا کیف پول الکترونیک.
+2. **فیلتر و دسته‌بندی پیشرفته**: کاربران می‌توانند بر اساس قیمت، رنگ، مدل و برند، محصولات را مرتب کنند.
+3. **بروزرسانی نسخه جدید**: بهبود عملکرد، اضافه کردن ویژگی‌های جدید و به‌روزرسانی رابط کاربری.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
